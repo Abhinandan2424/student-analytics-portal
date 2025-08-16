@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { api } from '../../api/client';
 import './AttendancePage.css';
 
-export default function AttendancePage() {
+function AttendancePage() {
   const [students, setStudents] = useState([]);
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedClass, setSelectedClass] = useState('10A');
@@ -139,3 +139,5 @@ export default function AttendancePage() {
     </div>
   );
 }
+
+export default AttendancePage;
