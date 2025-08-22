@@ -1,42 +1,39 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Header container */
+.app-header {
+  align-items: center;
+  background: linear-gradient(135deg, #05258d, #3a6073);
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Title */
+/* .app-title {
+  margin: 0;
+  padding: 20px;
+  color: white;
+  font-size: 24px;
+} */
+.app-title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: 0px;
+  width: 100%;
+  background: linear-gradient(135deg, #05258d, #3a6073);
+  color:white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 1000; /* Sidebar ya content ke upar dikhane ke liye */
+  border-bottom: 1px solid #ddd;
 }
 
-.card {
-  padding: 2em;
-}
 
-.read-the-docs {
-  color: #888;
+/* Divider line */
+.app-divider {
+  width: 60%;
+  margin: auto;
+  border: none;
+  height: 2px;
+  background-color: white;
 }

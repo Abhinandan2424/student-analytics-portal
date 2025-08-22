@@ -1,39 +1,47 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 import AttendancePage from "./components/Attendance/AttendancePage";
-// import MarksPage from "./components/MarksPage";
-// import ReportsPage from "./components/ReportsPage";
 import StudentList from "./components/Students/StudentList";
 import Dashboard from "./components/Dashboard/Dashboard";
 import StudentForm from "./components/Students/StudentForm";
+import EditStudent from "./components/Students/EditStudent";
+import Login from "./components/Login/Login";
+import Signup from "./components/Login/Signup";  // ✅ NEW
+import Layout from "./components/Layout";
+import "./App.css";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("access") // ✅ check token
+  );
+
   return (
     <BrowserRouter>
-    <div>
-      <div  style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-      <h1>Student Attendance & Marks Analytics Portal</h1>
-      <nav >
-        <Link to="/" style={{ marginRight: 10 }}>Students</Link>
-        <Link to="/dashboard" style={{ marginRight: 10 }}>Dashboard</Link>
-        <Link to="/attendance" style={{ marginRight: 10 }}>Attendance</Link>
-        <Link to="/studentform" style={{ marginRight: 10 }}>Student Form</Link>
+      <div>
+        <div className="app-header">
+          <h1 className="app-title">
+            Student Attendance & Marks Analytics Portal
+          </h1>
+          <hr className="app-divider" />
+        </div>
 
-        {/* <Route path="/add_student/" element={<StudentForm />} /> */}
-        {/* <Link to="/marks" style={{ marginRight: 10 }}>Marks</Link> */}
-        {/* <Link to="/reports">Reports</Link> */}
-      </nav>
-    </div>
-      
-      <Routes>
-        <Route path="/" element={<StudentList />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/attendance" element={<AttendancePage />} />
-        <Route path="/studentform" element={<StudentForm />} />
-        {/* <Route path="/marks" element={<MarksPage />} />
-        <Route path="/reports" element={<ReportsPage />} /> */}
-      </Routes>
-    </div>
-    
+        <Routes>
+          <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/signup" element={<Signup />} />
+
+          {isLoggedIn ? (
+            <Route element={<Layout setIsLoggedIn={setIsLoggedIn} />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/students" element={<StudentList />} />
+              <Route path="/attendance" element={<AttendancePage />} />
+              <Route path="/studentform" element={<StudentForm />} />
+              <Route path="/edit-student/:id" element={<EditStudent />} />
+            </Route>
+          ) : (
+            <Route path="*" element={<Navigate to="/" />} />
+          )}
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

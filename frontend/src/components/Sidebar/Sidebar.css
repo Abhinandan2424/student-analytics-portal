@@ -1,0 +1,42 @@
+.sidebar {
+  width: 150px;
+  height: 100vh;
+  background: #1a73e8;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 50px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

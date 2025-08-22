@@ -1,6 +1,6 @@
 /* Main Form Container */
 .form-container {
-  max-width: 600px;
+  max-width: 300px;
   margin: 30px auto;
   padding: 25px;
   background-color: #f9f9f9;
@@ -12,13 +12,13 @@
 .form-container h2 {
   text-align: center;
   color: #2c3e50;
-  margin-bottom: 25px;
+  margin-top: 0px;
   font-size: 24px;
 }
 
 /* Form Groups */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .form-group label {
@@ -33,10 +33,10 @@
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 12px;
+  padding: 7px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 14px;
   transition: border-color 0.3s;
   box-sizing: border-box;
 }
@@ -65,7 +65,7 @@
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s;
