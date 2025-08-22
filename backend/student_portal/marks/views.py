@@ -12,3 +12,5 @@ from .serializers import MarksSerializer
 def marks_list(request):
     data = MarksSerializer(Marks.objects.all(), many=True).data
     return Response(data)
+
+

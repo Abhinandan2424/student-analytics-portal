@@ -10,12 +10,12 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class AttendanceSerializer(serializers.ModelSerializer):
-    student_name = serializers.CharField(source='student.name', read_only=True)
-    student_class = serializers.CharField(source='student.student_class', read_only=True)
+    student = StudentSerializer(read_only=True)
 
     class Meta:
         model = Attendance
-        fields = ["id","student","student_name","student_class","date","status"]
+        fields = ["id", "student", "date", "status"]
+        
 
 class MarksSerializer(serializers.ModelSerializer):
     student_name = serializers.CharField(source='student.name', read_only=True)
