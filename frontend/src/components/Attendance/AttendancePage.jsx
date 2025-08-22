@@ -105,10 +105,10 @@ function AttendancePage() {
           >
             <option value="10A">10A</option>
             <option value="10B">10B</option>
-            <option value="11A">9A</option>
-            <option value="11B">9B</option>
-            <option value="12A">8A</option>
-            <option value="12B">8B</option>
+            <option value="9A">9A</option>
+            <option value="9B">9B</option>
+            <option value="8A">8A</option>
+            <option value="8B">8B</option>
           </select>
         </div>
 
