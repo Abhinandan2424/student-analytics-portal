@@ -6,13 +6,13 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import StudentForm from "./components/Students/StudentForm";
 import EditStudent from "./components/Students/EditStudent";
 import Login from "./components/Login/Login";
-import Signup from "./components/Login/Signup";  // ✅ NEW
+import Signup from "./components/Login/Signup";  
 import Layout from "./components/Layout";
 import "./App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("access") // ✅ check token
+    !!localStorage.getItem("access") // check token
   );
 
   return (
@@ -20,7 +20,7 @@ function App() {
       <div>
         <div className="app-header">
           <h1 className="app-title">
-            Student Attendance & Marks Analytics Portal
+            Student Attendance Analytics Portal
           </h1>
           <hr className="app-divider" />
         </div>

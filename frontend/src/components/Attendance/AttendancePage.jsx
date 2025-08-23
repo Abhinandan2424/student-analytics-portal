@@ -9,7 +9,7 @@ function AttendancePage() {
   const [attendanceStatus, setAttendanceStatus] = useState({});
   const [isSaved, setIsSaved] = useState(false);
 
-  // Fetch students whenever class changes
+
   useEffect(() => {
     if (selectedClass) {
       api
@@ -24,7 +24,7 @@ function AttendancePage() {
           });
           setAttendanceStatus(initialStatus);
 
-          // ✅ also fetch saved attendance for this class & date
+          // also fetch saved attendance for this class & date
           fetchSavedAttendance(res.data);
         })
         .catch((err) => console.error(err));
@@ -76,7 +76,7 @@ function AttendancePage() {
     }));
 
     api
-      .post("/save-attendance/", attendanceData) // ✅ backend me ye URL banaya tha
+      .post("/save-attendance/", attendanceData) 
       .then(() => {
         alert(`Attendance is saved.`)
         setIsSaved(true);

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { api } from '../../api/client';
-import { Link } from 'react-router-dom';
-import './StudentList.css';
+import React, { useState, useEffect } from "react";
+import { api } from "../../api/client";
+import { Link } from "react-router-dom";
+import "./StudentList.css";
 
 function StudentList() {
   const [students, setStudents] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchStudents();
@@ -13,25 +13,25 @@ function StudentList() {
 
   const fetchStudents = async () => {
     try {
-      const response = await api.get('/students/');
+      const response = await api.get("/students/");
       setStudents(response.data);
     } catch (error) {
-      console.error('Error fetching students:', error);
+      console.error("Error fetching students:", error);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this student?')) {
+    if (window.confirm("Are you sure you want to delete this student?")) {
       try {
         await api.delete(`/students/${id}/`);
-        fetchStudents(); // Refresh the list
+        fetchStudents();
       } catch (error) {
-        console.error('Error deleting student:', error);
+        console.error("Error deleting student:", error);
       }
     }
   };
 
-  const filteredStudents = students.filter(student => {
+  const filteredStudents = students.filter((student) => {
     const searchLower = searchTerm.toLowerCase();
     return (
       student.name.toLowerCase().includes(searchLower) ||
@@ -42,7 +42,7 @@ function StudentList() {
   return (
     <div className="student-management-container">
       <h1>Student Management</h1>
-      
+
       <div className="controls">
         <div className="search-box">
           <input
@@ -53,7 +53,7 @@ function StudentList() {
           />
           <span className="search-icon">🔍</span>
         </div>
-        
+
         <Link to="/studentform" className="add-btn">
           + Add New Student
         </Link>
@@ -66,23 +66,21 @@ function StudentList() {
               <th>Roll Number</th>
               <th>Name</th>
               <th>Class</th>
-              {/* <th>Section</th> */}
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredStudents.map(student => (
+            {filteredStudents.map((student) => (
               <tr key={student.id}>
                 <td>{student.roll_no}</td>
                 <td>{student.name}</td>
                 <td>{student.student_class}</td>
-                {/* <td>{student.section}</td> */}
                 <td className="actions">
                   <Link to={`/edit-student/${student.id}`} className="edit-btn">
                     Edit
                   </Link>
-                  <button 
-                    onClick={() => handleDelete(student.id)} 
+                  <button
+                    onClick={() => handleDelete(student.id)}
                     className="delete-btn"
                   >
                     Delete

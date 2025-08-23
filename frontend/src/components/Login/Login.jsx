@@ -16,7 +16,7 @@ function Login({ setIsLoggedIn }) {
         password,
       });
 
-      // ✅ Token save in localStorage
+      // Token save in localStorage
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
 

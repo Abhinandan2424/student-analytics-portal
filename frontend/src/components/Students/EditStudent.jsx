@@ -1,4 +1,3 @@
-// src/pages/students/EditStudent.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../api/client";
@@ -39,7 +38,7 @@ function EditStudent() {
     try {
       await api.put(`/students/${id}/`, formData);
       alert(" Student updated successfully!");
-      navigate("/students"); // 👈 correct redirect
+      navigate("/students"); 
     } catch (err) {
       alert(" Error updating student: " + err.message);
     }

@@ -14,7 +14,7 @@ function StudentForm() {
     phone: "",
   };
 
-  // ✅ Sirf studentsList use karenge
+  // only for student list
   const [studentsList, setStudentsList] = useState([emptyStudent]);
 
   const handleChange = (e, index) => {
@@ -35,12 +35,13 @@ function StudentForm() {
       // Reset form
       setStudentsList([emptyStudent]);
 
-      // ✅ Redirect to Student List page
       navigate("/students");
     } catch (error) {
-  alert("Error saving student: " + (error.response?.data?.message || error.message));
-}
-
+      alert(
+        "Error saving student: " +
+          (error.response?.data?.message || error.message)
+      );
+    }
   };
 
   return (
@@ -106,25 +107,8 @@ function StudentForm() {
                 onChange={(e) => handleChange(e, index)}
               />
             </div>
-
-            {/* ✅ Remove Student button */}
-            {/* {studentsList.length > 1 && (
-              <button
-                type="button"
-                className="remove-btn"
-                onClick={() => {
-                  const updated = [...studentsList];
-                  updated.splice(index, 1);
-                  setStudentsList(updated);
-                }}
-              >
-                Remove
-              </button>
-            )} */}
           </div>
         ))}
-
-       
 
         <button type="submit" className="submit-btn">
           Save Student

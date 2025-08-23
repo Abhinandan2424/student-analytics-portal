@@ -6,8 +6,9 @@
 }
 
 .login-box {
+  margin-top: 50px;
   width: 350px;
-  padding: 30px;
+  padding:10px 30px;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -15,7 +16,7 @@
 }
 
 .login-box h2 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: #333;
 }
 
