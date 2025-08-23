@@ -1,5 +1,5 @@
 # student-analytics-portal
-Student Attendance &amp; s Analytics Portal — a simple, scalable web app to manage students, mark attendance ani view analytics. Backend: Django REST Framework + MySQL. Frontend: React.js.
+Student Attendance &amp; Analytics Portal — a simple, scalable web app to manage students, mark attendance ani view analytics. Backend: Django REST Framework + MySQL. Frontend: React.js.
 
 ✨ Features:
  ✅ User Authentication
