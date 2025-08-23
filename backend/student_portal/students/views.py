@@ -3,13 +3,9 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from .models import Student
-from .serializers import StudentSerializer, AttendanceSerializer, MarksSerializer
+from .serializers import StudentSerializer, AttendanceSerializer
 from attendance.models import Attendance
-from marks.models import Marks
-from .models import Student
-from .serializers import StudentSerializer
 from django.utils.timezone import now
 
 
@@ -57,7 +53,7 @@ def attendance_list(request):
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def save_attendance(request):
-    data = request.data  # list of objects from React
+    data = request.data 
     saved_records = []
 
     for entry in data:
@@ -96,20 +92,4 @@ def attendance_today(request):
         "percentage": round(percentage, 2)
     })
 
-#mark list
-@api_view(["GET"])
-@permission_classes([AllowAny])
-def marks_list(request):
-    cls = request.query_params.get("class")
-    subject = request.query_params.get("subject")
-    student_id = request.query_params.get("student_id")
-    qs = Marks.objects.select_related("student").all().order_by("exam_date")
 
-    if cls:
-        qs = qs.filter(student__student_class=cls)
-    if subject:
-        qs = qs.filter(subject=subject)
-    if student_id:
-        qs = qs.filter(student_id=student_id)
-
-    return Response(MarksSerializer(qs, many=True).data)

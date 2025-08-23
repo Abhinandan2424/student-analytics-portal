@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'students',
     'attendance',
-    'marks',
     'rest_framework_simplejwt',
     'teacher',
 ]
