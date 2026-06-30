@@ -7,8 +7,8 @@ import {
 } from "recharts";
 import { api } from "../../api/client"; 
 import "./Dashboard.css";
+const COLORS = ["#4CAF50", "#F44336"];
 
-const COLORS = ["#0088FE", "#FF8042"];
 
 
 function Dashboard() {
@@ -62,6 +62,8 @@ function Dashboard() {
         </div>
       </div>
 
+
+
       {/* Charts */}
       <div className="charts-container">
         <div className="chart">
@@ -89,10 +91,7 @@ function Dashboard() {
           ) : (
             <p>Loading attendance data...</p>
           )}
-        </div>
-
-       
-       
+        </div>   
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ function Login({ setIsLoggedIn }) {
       localStorage.setItem("refresh", res.data.refresh);
 
       setIsLoggedIn(true);
-      navigate("/dashboard");
+  
     } catch (err) {
       alert("Invalid username or password!");
     }

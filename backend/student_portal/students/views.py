@@ -1,6 +1,6 @@
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework import viewsets, status
-from rest_framework.permissions import AllowAny
+
 from rest_framework.response import Response
 from django.db.models import Q
 from .models import Student
@@ -13,22 +13,26 @@ class StudentViewSet(viewsets.ModelViewSet):
  
     queryset = Student.objects.all().order_by("student_class", "roll_no")
     serializer_class = StudentSerializer
-    permission_classes = [AllowAny]
 
     def get_queryset(self):
         qs = super().get_queryset()
+
         cls = self.request.query_params.get("student_class")
+
         search = self.request.query_params.get("search")
         if cls:
             qs = qs.filter(student_class=cls)
+       
         if search:
             qs = qs.filter(Q(name__icontains=search) | Q(roll_no__icontains=search))
         return qs
 
    
     def create(self, request, *args, **kwargs):
-        many = isinstance(request.data, list)
-        serializer = self.get_serializer(data=request.data, many=many)
+        if isinstance(request.data, list):
+            serializer = self.get_serializer(data=request.data, many=True)
+        else:
+            serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -37,7 +41,6 @@ class StudentViewSet(viewsets.ModelViewSet):
 
 # Attendance List
 @api_view(["GET"])
-@permission_classes([AllowAny])
 def attendance_list(request):
     date = request.query_params.get("date")
     cls = request.query_params.get("class")
@@ -51,7 +54,6 @@ def attendance_list(request):
 
 # save attendance
 @api_view(["POST"])
-@permission_classes([AllowAny])
 def save_attendance(request):
     data = request.data 
     saved_records = []
@@ -73,7 +75,6 @@ def save_attendance(request):
 
 # Todays Attendance
 @api_view(["GET"])
-@permission_classes([AllowAny])
 def attendance_today(request):
     today = now().date()
     qs = Attendance.objects.filter(date=today)
@@ -93,3 +94,39 @@ def attendance_today(request):
     })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       

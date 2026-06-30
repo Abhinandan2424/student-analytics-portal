@@ -11,8 +11,6 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
-# ✅ Teacher Signup
-
 
 @api_view(['POST'])
 def signup_teacher(request):
@@ -27,7 +25,7 @@ def signup_teacher(request):
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ Teacher Login
+
 @api_view(['POST'])
 def login_teacher(request):
     username = request.data.get("username")

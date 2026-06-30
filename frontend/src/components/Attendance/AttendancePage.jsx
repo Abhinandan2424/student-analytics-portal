@@ -10,6 +10,7 @@ function AttendancePage() {
   const [isSaved, setIsSaved] = useState(false);
 
 
+
   useEffect(() => {
     if (selectedClass) {
       api
@@ -31,6 +32,10 @@ function AttendancePage() {
     }
   }, [selectedClass, date]);
 
+
+
+
+
   // fetch saved attendance for date + class
   const fetchSavedAttendance = (studentList) => {
     api
@@ -49,6 +54,7 @@ function AttendancePage() {
       })
       .catch((err) => console.error("Error fetching saved attendance", err));
   };
+
 
   // Toggle status of one student
   const toggleStatus = (studentId) => {
