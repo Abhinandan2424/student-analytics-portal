@@ -19,12 +19,12 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <div className="app-header">
+       
           <h1 className="app-title">
             Student Attendance Analytics Portal
           </h1>
           <hr className="app-divider" />
-        </div>
+      
 
         <Routes>
   <Route

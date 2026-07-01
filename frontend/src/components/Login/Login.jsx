@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api/client";
 import "./Login.css";
 
@@ -7,9 +7,12 @@ function Login({ setIsLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await api.post("/teacher/login/", {
         username,
@@ -18,8 +21,11 @@ function Login({ setIsLoggedIn }) {
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
       setIsLoggedIn(true);
+      navigate("/dashboard");
     } catch (err) {
       alert("Invalid username or password!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,7 +56,9 @@ function Login({ setIsLoggedIn }) {
               {showPassword ? "🙈" : "👁️"}
             </span>
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
         <p>
           Don't have an account? <Link to="/signup">Signup</Link>
