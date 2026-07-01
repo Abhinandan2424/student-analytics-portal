@@ -1,9 +1,8 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status, permissions
+from rest_framework.permissions import AllowAny
 from .models import Teacher
 from .serializers import TeacherSignupSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -13,6 +12,7 @@ from django.contrib.auth.hashers import make_password
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])   # HE ADD KAR
 def signup_teacher(request):
     try:
         data = request.data
@@ -27,6 +27,7 @@ def signup_teacher(request):
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])   # HE ADD KAR
 def login_teacher(request):
     username = request.data.get("username")
     password = request.data.get("password")
