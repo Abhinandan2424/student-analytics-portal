@@ -12,7 +12,7 @@ from django.contrib.auth.hashers import make_password
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])   # HE ADD KAR
+@permission_classes([AllowAny])   
 def signup_teacher(request):
     try:
         data = request.data
@@ -27,7 +27,7 @@ def signup_teacher(request):
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])   # HE ADD KAR
+@permission_classes([AllowAny])   
 def login_teacher(request):
     username = request.data.get("username")
     password = request.data.get("password")

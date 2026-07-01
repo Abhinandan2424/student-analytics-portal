@@ -1,6 +1,6 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status
-
 from rest_framework.response import Response
 from django.db.models import Q
 from .models import Student
@@ -10,24 +10,20 @@ from django.utils.timezone import now
 
 
 class StudentViewSet(viewsets.ModelViewSet):
- 
+    permission_classes = [IsAuthenticated]  
     queryset = Student.objects.all().order_by("student_class", "roll_no")
     serializer_class = StudentSerializer
 
     def get_queryset(self):
         qs = super().get_queryset()
-
         cls = self.request.query_params.get("student_class")
-
         search = self.request.query_params.get("search")
         if cls:
             qs = qs.filter(student_class=cls)
-       
         if search:
             qs = qs.filter(Q(name__icontains=search) | Q(roll_no__icontains=search))
         return qs
 
-   
     def create(self, request, *args, **kwargs):
         if isinstance(request.data, list):
             serializer = self.get_serializer(data=request.data, many=True)
@@ -38,9 +34,8 @@ class StudentViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-
-# Attendance List
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])  
 def attendance_list(request):
     date = request.query_params.get("date")
     cls = request.query_params.get("class")
@@ -52,39 +47,33 @@ def attendance_list(request):
     return Response(AttendanceSerializer(qs, many=True).data)
 
 
-# save attendance
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])  
 def save_attendance(request):
-    data = request.data 
+    data = request.data
     saved_records = []
-
     for entry in data:
         student_id = entry.get("student_id")
         date = entry.get("date")
-        status = entry.get("status")
-
+        status_val = entry.get("status", "").capitalize() 
         obj, created = Attendance.objects.update_or_create(
             student_id=student_id,
             date=date,
-            defaults={"status": status}
+            defaults={"status": status_val}
         )
         saved_records.append(obj)
-
     return Response(AttendanceSerializer(saved_records, many=True).data)
 
 
-# Todays Attendance
 @api_view(["GET"])
+@permission_classes([IsAuthenticated]) 
 def attendance_today(request):
     today = now().date()
     qs = Attendance.objects.filter(date=today)
-
     total_students = qs.count()
     present_students = qs.filter(status="Present").count()
     absent_students = qs.filter(status="Absent").count()
-
     percentage = (present_students / total_students * 100) if total_students > 0 else 0
-
     return Response({
         "date": today,
         "total_students": total_students,
@@ -92,41 +81,3 @@ def attendance_today(request):
         "absent": absent_students,
         "percentage": round(percentage, 2)
     })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
