@@ -12,6 +12,13 @@
   color: white;
   font-size: 24px;
 } */
+
+@media (max-width: 768px) {
+  .layout-content {
+    margin-left: 0 !important;
+    padding: 60px 12px 20px !important;
+  }
+}
 .app-title {
   position: fixed;
   top: 0;

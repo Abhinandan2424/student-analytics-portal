@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { api } from "../../api/client";   // ✅ Axios client
+import { Link } from "react-router-dom";
+import { api } from "../../api/client";
 import "./Login.css";
 
 function Login({ setIsLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,13 +15,9 @@ function Login({ setIsLoggedIn }) {
         username,
         password,
       });
-
-      // Token save in localStorage
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
-
       setIsLoggedIn(true);
-  
     } catch (err) {
       alert("Invalid username or password!");
     }
@@ -39,17 +35,25 @@ function Login({ setIsLoggedIn }) {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </span>
+          </div>
           <button type="submit">Login</button>
         </form>
         <p>
-          Don’t have an account? <Link to="/signup">Signup</Link>
+          Don't have an account? <Link to="/signup">Signup</Link>
         </p>
       </div>
     </div>
