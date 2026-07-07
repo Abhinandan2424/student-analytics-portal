@@ -9,6 +9,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['POST'])
@@ -41,3 +42,25 @@ def login_teacher(request):
             "username": user.username,
         })
     return Response({"error": "Invalid Credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def profile_teacher(request):
+    try:
+        user = request.user
+        teacher = Teacher.objects.get(user=user)
+        return Response({
+            "id" : user.id,
+            "username" :user.username,
+            "email" : user.email,
+            "subject" :teacher.subject,
+            "name": user.get_full_name() or user.username,
+        }
+
+        )
+    except Teacher.DoesNotExist:
+        return Response(
+            {"error": "Teacher Profile Not Found"},
+            status=404
+        )
