@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api/client";
 import "./Login.css";
 
-function Login({ setIsLoggedIn }) {
+function Login({ setIsLoggedIn, setTeacherInfo }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +20,10 @@ function Login({ setIsLoggedIn }) {
       });
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
+
+      const profileRes = await api.get("/teacher/profile");
+      setTeacherInfo(profileRes.data);
+
       setIsLoggedIn(true);
       navigate("/dashboard");
     } catch (err) {

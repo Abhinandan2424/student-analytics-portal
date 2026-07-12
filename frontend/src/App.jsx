@@ -13,96 +13,99 @@ import "./App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("access")
+    !!localStorage.getItem("access"),
   );
+  const [teacherInfo, setTeacherInfo] = useState(null);
 
   return (
     <BrowserRouter>
       <div>
-       
-          <h1 className="app-title">
-            Student Attendance Analytics Portal
-          </h1>
-          <hr className="app-divider" />
-      
+        <h1 className="app-title">Student Attendance Analytics Portal</h1>
+        <hr className="app-divider" />
 
         <Routes>
-  <Route
-    path="/"
-    element={
-      isLoggedIn ? (
-        <Navigate to="/dashboard" replace />
-      ) : (
-        <Login setIsLoggedIn={setIsLoggedIn} />
-      )
-    }
-  />
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
+                <Login setIsLoggedIn={setIsLoggedIn} 
+                       setTeacherInfo={setTeacherInfo}/>
+              )
+            }
+          />
 
-  <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup />} />
 
-  <Route
-    path="/dashboard"
-    element={
-      isLoggedIn ? (
-        <Layout setIsLoggedIn={setIsLoggedIn}>
-          <Dashboard />
-        </Layout>
-      ) : (
-        <Navigate to="/" replace />
-      )
-    }
-  />
-  <Route
-    path="/students"
-    element={
-      isLoggedIn ? (
-        <Layout setIsLoggedIn={setIsLoggedIn}>
-          <StudentList />
-        </Layout>
-      ) : (
-        <Navigate to="/" replace />
-      )
-    }
-  />
-  <Route
-    path="/attendance"
-    element={
-      isLoggedIn ? (
-        <Layout setIsLoggedIn={setIsLoggedIn}>
-          <AttendancePage />
-        </Layout>
-      ) : (
-        <Navigate to="/" replace />
-      )
-    }
-  />
-  <Route
-    path="/studentform"
-    element={
-      isLoggedIn ? (
-        <Layout setIsLoggedIn={setIsLoggedIn}>
-          <StudentForm />
-        </Layout>
-      ) : (
-        <Navigate to="/" replace />
-      )
-    }
-  />
-  <Route
-    path="/edit-student/:id"
-    element={
-      isLoggedIn ? (
-        <Layout setIsLoggedIn={setIsLoggedIn}>
-          <EditStudent />
-        </Layout>
-      ) : (
-        <Navigate to="/" replace />
-      )
-    }
-  />
+          <Route
+            path="/dashboard"
+            element={
+              isLoggedIn ? (
+                <Layout setIsLoggedIn={setIsLoggedIn}
+                        teacherInfo={teacherInfo}>
+                  <Dashboard />
+                </Layout>
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/students"
+            element={
+              isLoggedIn ? (
+                <Layout setIsLoggedIn={setIsLoggedIn}
+                        teacherInfo={teacherInfo}>
+                  <StudentList />
+                </Layout>
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/attendance"
+            element={
+              isLoggedIn ? (
+                <Layout setIsLoggedIn={setIsLoggedIn}
+                        teacherInfo={teacherInfo}>
+                  <AttendancePage />
+                </Layout>
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/studentform"
+            element={
+              isLoggedIn ? (
+                <Layout setIsLoggedIn={setIsLoggedIn}
+                        teacherInfo={teacherInfo}>
+                  <StudentForm />
+                </Layout>
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/edit-student/:id"
+            element={
+              isLoggedIn ? (
+                <Layout setIsLoggedIn={setIsLoggedIn}
+                        teacherInfo={teacherInfo}>
+                  <EditStudent />
+                </Layout>
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
 
-  <Route path="*" element={<Navigate to="/" replace />} />
-</Routes>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </div>
     </BrowserRouter>
   );
