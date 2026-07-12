@@ -21,7 +21,7 @@ function Login({ setIsLoggedIn, setTeacherInfo }) {
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
 
-      const profileRes = await api.get("/teacher/profile");
+      const profileRes = await api.get("/teacher/profile/");
       setTeacherInfo(profileRes.data);
 
       setIsLoggedIn(true);
